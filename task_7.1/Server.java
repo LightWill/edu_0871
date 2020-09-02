@@ -20,31 +20,15 @@ public class Server {
                 DataInputStream incoming = new DataInputStream(socket.getInputStream());
                 DataOutputStream outgoing = new DataOutputStream(socket.getOutputStream());
                 System.out.println("Клиент подключен.");
-                outgoing.writeUTF("Укажите ваше имя:");
-
-                String name = incoming.readUTF();
-                System.out.println("name: " + name);
-
-                Client client = new Client(name, socket);
-                clients.add(client);
-
-                Thread register = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            while (true) {
-                                String str = incoming.readUTF();
-                                System.out.println("Клиент прислал сообщение1: " + str);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        outgoing.writeUTF("Укажите ваше имя:");
+                        String name = incoming.readUTF();
+                        System.out.println("name: " + name);
+
+                        Client client = new Client(name, socket);
+                        clients.add(client);
                         try {
                             while (true) {
                                 String str = incoming.readUTF();
@@ -56,7 +40,6 @@ public class Server {
                         }
                     }
                 });
-                register.start();
                 thread.start();
             }
         } catch (IOException e) {
