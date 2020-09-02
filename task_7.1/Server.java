@@ -23,13 +23,14 @@ public class Server {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        outgoing.writeUTF("Укажите ваше имя:");
-                        String name = incoming.readUTF();
-                        System.out.println("name: " + name);
-
-                        Client client = new Client(name, socket);
-                        clients.add(client);
                         try {
+                            outgoing.writeUTF("Укажите ваше имя:");
+                            String name = incoming.readUTF();
+                            System.out.println("name: " + name);
+
+                            Client client = new Client(name, socket);
+                            clients.add(client);
+                            
                             while (true) {
                                 String str = incoming.readUTF();
                                 broadcastMsg(str);
