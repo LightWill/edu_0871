@@ -51,7 +51,7 @@ public class Server {
     public static void broadcastMsg(String userName, String str) {
         DataOutputStream outgoing;
         for (User user: users) {
-            user.send(str);
+            user.send(userName + "сказал: " + str);
         }
     }
 
