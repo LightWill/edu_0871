@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Server {
-    static ArrayList<Client> clients = new ArrayList<>();
+    static ArrayList<User> users = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -27,8 +27,8 @@ public class Server {
                             String name = incoming.readUTF();
                             System.out.println("name: " + name);
 
-                            Client client = new Client(name, socket);
-                            clients.add(client);
+                            User user = new User(name, socket);
+                            users.add(user);
 
                             while (true) {
                                 String str = incoming.readUTF();
@@ -49,15 +49,15 @@ public class Server {
 
     public static void broadcastMsg(String str) {
         DataOutputStream outgoing;
-        for (Client client: clients) {
-            client.send(str);
+        for (User user: users) {
+            user.send(str);
         }
     }
 
     public static void sendToClient(String name, String text) {
-        for (Client client: clients) {
-            if (client.name.equals(name)) {
-                client.send(text);
+        for (User user: users) {
+            if (user.name.equals(name)) {
+                user.send(text);
                 break;
             }
         }
@@ -65,11 +65,11 @@ public class Server {
 
 }
 
-class Client {
+class User {
     String name;
     Socket socket;
 
-    Client(String name, Socket socket) {
+    User(String name, Socket socket) {
         this.name = name;
         this.socket = socket;
     }
