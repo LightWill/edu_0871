@@ -32,7 +32,7 @@ public class Server {
 
                             while (true) {
                                 String str = incoming.readUTF();
-                                broadcastMsg(str);
+                                broadcastMsg(user.name, str);
 
                                 System.out.println(user.name + " прислал сообщение: " + str);
                             }
@@ -48,7 +48,7 @@ public class Server {
         }
     }
 
-    public static void broadcastMsg(String str) {
+    public static void broadcastMsg(String userName, String str) {
         DataOutputStream outgoing;
         for (User user: users) {
             user.send(str);
