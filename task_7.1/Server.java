@@ -11,12 +11,11 @@ public class Server {
     static ArrayList<Client> clients = new ArrayList<>();
 
     public static void main(String[] args) {
-        Socket socket = null;
         try {
             ServerSocket serverSocket = new ServerSocket(8189);
             System.out.println("Сервер запущен");
             while (true) {
-                socket = serverSocket.accept();
+                Socket socket = serverSocket.accept();
                 DataInputStream incoming = new DataInputStream(socket.getInputStream());
                 DataOutputStream outgoing = new DataOutputStream(socket.getOutputStream());
                 System.out.println("Клиент подключен.");
@@ -30,7 +29,7 @@ public class Server {
 
                             Client client = new Client(name, socket);
                             clients.add(client);
-                            
+
                             while (true) {
                                 String str = incoming.readUTF();
                                 broadcastMsg(str);
