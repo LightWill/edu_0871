@@ -42,15 +42,6 @@ public class AllPossiblePlaces {
             }
         }
 
-//        for (int i = 0; i < allPossibleCombinations.length; i++) {
-//            for (int j = 0; j < allPossibleCombinations[j].length; j++) {
-//                System.out.print(allPossibleCombinations[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//
-//        System.out.println(allPossibleCombinations.length);
-
         for (int i = 0; i < allPossibleCombinations.length; i++) {
             HashSet<Integer> setTocheck = new HashSet<>();
             for (int j = 0; j < allPossibleCombinations[i].length; j++) {
@@ -59,7 +50,6 @@ public class AllPossiblePlaces {
 
             if (setTocheck.size() == allPossibleCombinations[i].length) {
                 for (int j = 0; j < allPossibleCombinations[i].length; j++) {
-//                    System.out.print(allPossibleCombinations[i][j] + " ");
                     System.out.print(array[allPossibleCombinations[i][j]] + " ");
                 }
                 System.out.println();
